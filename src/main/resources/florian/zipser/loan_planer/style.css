@@ -1,0 +1,8 @@
+
+.endTxt{
+	-fx-background-color: lightgray;
+}
+
+#warnField{
+   -fx-text-fill: red;
+}
