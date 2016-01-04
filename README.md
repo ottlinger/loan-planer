@@ -62,7 +62,7 @@ The application will present the calculated loan plan:
 
 ## Warnings
 
-When entering an invalid value You will get a warning message as shown here:
+When entering an invalid value you will get a warning message as shown here:
 
 ![application screenshot](./gh-site/img/LoanPlaner_warning.png)
 
