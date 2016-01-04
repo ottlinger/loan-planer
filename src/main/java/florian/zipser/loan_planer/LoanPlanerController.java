@@ -138,6 +138,7 @@ public class LoanPlanerController implements Initializable {
 			warn(String.format(WARN_VAL_NEG, fieldName));
 			return null;
 		}
+		warn("");
 		return retVal;
 	}
 
