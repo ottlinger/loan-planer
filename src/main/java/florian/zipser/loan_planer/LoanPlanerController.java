@@ -31,16 +31,16 @@ public class LoanPlanerController implements Initializable {
 	/** Warning message, when a field contains a non numeric. **/
 	private static final String WARN_NO_NUM = "Der Wert in Feld '%s' ist kein gültiger numerischer Wert. ";
 	private static final String WARN_VAL_NEG = "Der Wert in Feld '%s' ist kein positiver Wert. ";
-	
-	/** name of field loan**/
-	private static final String FIELD_LOAN= "Darlehensbetrag";
-	/** name of field lifetime**/
-	private static final String FIELD_LIFETIME= "Laufzeit";
-	/** name of field interest**/
-	private static final String FIELD_INTEREST= "Zinsen";
-	/** name of field principal**/
-	private static final String FIELD_PRINCIPAL= "Tilgung";
-	
+
+	/** name of field loan **/
+	private static final String FIELD_LOAN = "Darlehensbetrag";
+	/** name of field lifetime **/
+	private static final String FIELD_LIFETIME = "Zinsbindung";
+	/** name of field interest **/
+	private static final String FIELD_INTEREST = "Sollzins";
+	/** name of field principal **/
+	private static final String FIELD_PRINCIPAL = "Tilgung";
+
 	/**
 	 * Reference on entire table
 	 */
@@ -148,7 +148,6 @@ public class LoanPlanerController implements Initializable {
 			warn(String.format(WARN_VAL_NEG, fieldName));
 			return null;
 		}
-		warn("");
 		return retVal;
 	}
 
@@ -167,10 +166,10 @@ public class LoanPlanerController implements Initializable {
 		Double interestRate = validateDouble(interestTxt.getText(), FIELD_INTEREST);
 		Double principalRate = validateDouble(principalTxt.getText(), FIELD_PRINCIPAL);
 
+		// clear cells in table in case it is the second run at least
+		tableView.getItems().clear();
 		if (loan != null && lifetimeYears != null && interestRate != null && principalRate != null) {
-			warnField.setText("");
-			// clear cells in table in case it is the second run at least
-			tableView.getItems().clear();
+			warn("");
 
 			// calculate lifetime in month
 			int lifetime = 0;
@@ -283,7 +282,8 @@ public class LoanPlanerController implements Initializable {
 		@Override
 		public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 			if (newValue != null && !newValue.isEmpty()) {
-				validateDouble(newValue, fieldName);
+				if (validateDouble(newValue, fieldName)!= null)
+					warn("");
 			}
 		}
 	}
