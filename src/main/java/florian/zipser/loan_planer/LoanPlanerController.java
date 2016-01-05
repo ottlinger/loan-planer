@@ -31,6 +31,16 @@ public class LoanPlanerController implements Initializable {
 	/** Warning message, when a field contains a non numeric. **/
 	private static final String WARN_NO_NUM = "Der Wert in Feld '%s' ist kein gültiger numerischer Wert. ";
 	private static final String WARN_VAL_NEG = "Der Wert in Feld '%s' ist kein positiver Wert. ";
+	
+	/** name of field loan**/
+	private static final String FIELD_LOAN= "Darlehensbetrag";
+	/** name of field lifetime**/
+	private static final String FIELD_LIFETIME= "Laufzeit";
+	/** name of field interest**/
+	private static final String FIELD_INTEREST= "Zinsen";
+	/** name of field principal**/
+	private static final String FIELD_PRINCIPAL= "Tilgung";
+	
 	/**
 	 * Reference on entire table
 	 */
@@ -152,10 +162,10 @@ public class LoanPlanerController implements Initializable {
 	 */
 	@FXML
 	protected void handleCalculateButtonAction(ActionEvent event) {
-		Double loan = validateDouble(loanTxt.getText(), "Darlehensbetrag");
-		Double lifetimeYears = validateDouble(lifetimeTxt.getText(), "Laufzeit");
-		Double interestRate = validateDouble(interestTxt.getText(), "Zinsen");
-		Double principalRate = validateDouble(principalTxt.getText(), "Tilgung");
+		Double loan = validateDouble(loanTxt.getText(), FIELD_LOAN);
+		Double lifetimeYears = validateDouble(lifetimeTxt.getText(), FIELD_LIFETIME);
+		Double interestRate = validateDouble(interestTxt.getText(), FIELD_INTEREST);
+		Double principalRate = validateDouble(principalTxt.getText(), FIELD_PRINCIPAL);
 
 		if (loan != null && lifetimeYears != null && interestRate != null && principalRate != null) {
 			warnField.setText("");
@@ -199,10 +209,10 @@ public class LoanPlanerController implements Initializable {
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		loanTxt.textProperty().addListener(new NumberFieldChangedListener("Darlehensbetrag"));
-		lifetimeTxt.textProperty().addListener(new NumberFieldChangedListener("Laufzeit"));
-		interestTxt.textProperty().addListener(new NumberFieldChangedListener("Zinsen"));
-		principalTxt.textProperty().addListener(new NumberFieldChangedListener("Tilgung"));
+		loanTxt.textProperty().addListener(new NumberFieldChangedListener(FIELD_LOAN));
+		lifetimeTxt.textProperty().addListener(new NumberFieldChangedListener(FIELD_LIFETIME));
+		interestTxt.textProperty().addListener(new NumberFieldChangedListener(FIELD_INTEREST));
+		principalTxt.textProperty().addListener(new NumberFieldChangedListener(FIELD_PRINCIPAL));
 
 		loanCol.setCellFactory(new Callback<TableColumn<LoanRate, String>, TableCell<LoanRate, String>>() {
 			public TableCell call(TableColumn<LoanRate, String> c) {
